@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartReader AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1 id="mainTitle">SmartReader AI</h1>
+
+    <div class="language-selector">
+      <label for="uiLanguage" id="uiLangLabel">Choose page language:</label>
+      <select id="uiLanguage" onchange="updateInterfaceLanguage()">
+        <option value="en">English</option>
+        <option value="zh">中文</option>
+        <option value="es">Español</option>
+      </select>
+    </div>
+
+    <div class="input-section">
+      <h2 id="inputTitle">Input</h2>
+      
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="role" id="roleLabel">Select your role:</label>
+          <select id="role">
+            <option value="student" id="roleStudent">Student</option>
+            <option value="teacher" id="roleTeacher">Teacher</option>
+            <option value="sales" id="roleSales">Sales</option>
+            <option value="customer" id="roleCustomer">Customer</option>
+            <option value="product manager" id="roleProductManager">Product Manager</option>
+            <option value="analyst" id="roleAnalyst">Analyst</option>
+            <option value="supervisor" id="roleSupervisor">Supervisor</option>
+            <option value="reader" id="roleReader">Reader</option>
+            <option value="consultant" id="roleConsultant">Consultant</option>
+            <option value="developer" id="roleDeveloper">Developer</option>
+            <option value="marketer" id="roleMarketer">Marketer</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="goal" id="goalLabel">Select your goal:</label>
+          <select id="goal">
+            <option value="understand" id="goalUnderstand">Understand the key ideas</option>
+            <option value="explain" id="goalExplain">Be able to explain it to others</option>
+            <option value="apply" id="goalApply">Apply it to my work</option>
+            <option value="argue" id="goalArgue">Critically challenge or argue with it</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="language" id="outputLangLabel">Select output language:</label>
+          <select id="language">
+            <option value="English" id="outputEnglish">English</option>
+            <option value="Chinese" id="outputChinese">Chinese</option>
+            <option value="Spanish" id="outputSpanish">Spanish</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="text" id="pasteLabel">Paste your article text:</label>
+        <textarea id="text" rows="10" placeholder="Paste your text content or URL here..." class="translatable-placeholder"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="fileUpload" id="uploadLabel">Or upload your file:</label>
+        <div class="file-upload-area" id="fileUploadArea">
+          <input type="file" id="fileUpload" accept=".txt,.pdf,.doc,.docx">
+          <p id="uploadText">Click to upload or drag & drop your file here</p>
+          <small id="supportedFormats">Supported formats: TXT, PDF, DOC, DOCX</small>
+        </div>
+      </div>
+
+      <button onclick="generateOutput()" id="generateBtn" class="generate-btn">
+        <span id="btnText">Generate Summary</span>
+        <div id="loadingSpinner" class="spinner" style="display: none;"></div>
+      </button>
+    </div>
+
+    <div class="output-section" id="output" style="display: none;">
+      <h2 id="outputTitle">Output</h2>
+      
+      <div class="result-card">
+        <h3 id="summaryTitle">Summary in Bullet Points</h3>
+        <div id="summary" class="result-content"></div>
+      </div>
+      
+      <div class="result-card">
+        <h3 id="takeawayTitle">Key Takeaways</h3>
+        <div id="takeaways" class="result-content"></div>
+      </div>
+      
+      <div class="result-card">
+        <h3 id="questionTitle">Smart Questions to Ask</h3>
+        <div id="questions" class="result-content"></div>
+      </div>
+
+      <button onclick="downloadResults()" id="downloadBtn" class="download-btn">
+        Download as Text File
+      </button>
+    </div>
+
+    <div class="feedback-section">
+      <h2 id="feedbackTitle">Feedback to Improve</h2>
+      
+      <div class="form-group">
+        <label for="userFeedback" id="feedbackLabel">What function would make you more willing to pay?</label>
+        <textarea id="userFeedback" rows="4" placeholder="Share your feedback here..." class="translatable-placeholder"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="payment" id="paymentLabel">Do you want to pay for this? How much would you pay monthly?</label>
+        <select id="payment">
+          <option value="$0.99">$0.99</option>
+          <option value="$1.99">$1.99</option>
+          <option value="$2.99">$2.99</option>
+          <option value="$4.99">$4.99</option>
+        </select>
+      </div>
+
+      <button onclick="submitFeedback()" id="submitBtn" class="submit-btn">
+        Submit Feedback
+      </button>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
